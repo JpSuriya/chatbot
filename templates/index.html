@@ -13,36 +13,48 @@
 
 <body>
   <!-- partial:index.partial.html -->
-  <section class="msger">
-    <header class="msger-header">
-      <div class="msger-header-title">
-        <i class="fas fa-bug"></i> ChatBot <i class="fas fa-bug"></i>
-      </div>
-    </header>
+  <div id="chatWindow" class="chat-window">
 
-    <main class="msger-chat">
-      <div class="msg left-msg">
-        <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"></div>
+    <div class="content" id="chatcontent" style="display: none;">
+     
+      <section class="msger">
+        <header class="msger-header">
+          <div class="msger-header-title">
+            <i class="fas fa-bug"></i> ChatBot <i class="fas fa-bug"></i>
+            <span style="cursor: pointer;float: right;" class="minimize" onclick="minimizeChat()">-</span>
+          </div>
+        </header>
 
-        <div class="msg-bubble">
-          <div class="msg-info">
-            <div class="msg-info-name">ChatBot</div>
-            <div class="msg-info-time"></div>
+        <main class="msger-chat" id="chatBox">
+          <div class="msg left-msg">
+            <div class="msg-img" style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)">
+            </div>
+
+            <div class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">ChatBot</div>
+                <div class="msg-info-time"></div>
+              </div>
+
+              <div class="msg-text">
+                Hi, welcome to ChatBot! Go ahead and send me a message. 😄
+              </div>
+            </div>
           </div>
 
-          <div class="msg-text">
-            Hi, welcome to ChatBot! Go ahead and send me a message. 😄
-          </div>
-        </div>
-      </div>
+        </main>
 
-    </main>
+        <form class="msger-inputarea">
+          <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
+          <button type="submit" class="msger-send-btn">Send</button>
+        </form>
+      </section>
 
-    <form class="msger-inputarea">
-      <input type="text" class="msger-input" id="textInput" placeholder="Enter your message...">
-      <button type="submit" class="msger-send-btn">Send</button>
-    </form>
-  </section>
+    </div>
+    <button id="chatIcon" class="chat-icon" onclick="toggleChatWindow()" style="position: fixed;bottom: 0;right: 0;">
+      <img width="50px" src="https://png.pngtree.com/element_our/png/20181229/vector-chat-icon-png_302635.jpg" alt="Chat Icon">
+    </button>
+  </div>
   <!-- partial -->
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
@@ -50,7 +62,33 @@
     const msgerForm = get(".msger-inputarea");
     const msgerInput = get(".msger-input");
     const msgerChat = get(".msger-chat");
+    // Get chat icon and chat box elements
+    const chatIcon = document.getElementById('chatIcon');
+    const chatBox = document.getElementById('chatBox');
 
+    let chatWindowVisible = false;
+
+    function toggleChatWindow() {
+      const chatWindow = document.getElementById("chatcontent");
+      chatWindow.style.display = chatWindowVisible ? "none" : "block";
+      chatWindowVisible = !chatWindowVisible;
+    }
+
+    function minimizeChat() {
+      const chatWindow = document.getElementById("chatcontent");
+      chatWindow.style.display = "none";
+      chatWindowVisible = false;
+    }
+
+
+    // Show chat box when clicking chat icon
+    chatIcon.addEventListener('click', function () {
+      chatBox.style.display = 'block';
+    });
+
+    function closeChatBox() {
+      chatBox.style.display = "none";
+    }
 
     // Icons made by Freepik from www.flaticon.com
     const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
@@ -62,6 +100,7 @@
       event.preventDefault();
 
       const msgText = msgerInput.value;
+      console.log(msgText);
       if (!msgText) return;
 
       appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
