@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Input App</title>
+</head>
+<body>
+    <h1>Voice Input WebApp</h1>
+    <textarea id="voiceInput" rows="4" cols="50"></textarea>
+    <button onclick="startListening()">Start Listening</button>
+    <script>
+        function startListening() {
+            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('voiceInput').value = transcript;
+            };
+            recognition.start();
+        }
+    </script>
+</body>
+</html>
