@@ -34,7 +34,7 @@ body {
   width: 100%;
   max-width: 867px;
   margin: 25px 10px;
-  height: calc(100% - 50px);
+  height: 500px;
   border: var(--border);
   border-radius: 5px;
   background: var(--msger-bg);
@@ -54,7 +54,7 @@ body {
 
 .msger-chat {
    /* Set a fixed height or max-height for the scrollable area */
-  max-height: 300px; /* Adjust as needed */
+  max-height: 500px; /* Adjust as needed */
   overflow-y: scroll; /* Add a vertical scrollbar when content overflows */
   /* Additional styling (optional) */
   background-color: #f5f5f5;
